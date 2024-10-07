@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODO List</title>
+    <link rel="shortcut icon" href="x-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+    <div class="todo-container">
+        <h1>TODO List</h1>
+
+        <div class="input-section">
+            <input type="text" id="new-task" placeholder="Add a new task...">
+            <button id="add-task-btn">Add Task</button>
+        </div>
+
+        <ul id="task-list">
+        </ul>
+    </div>
+
+    <script>
+        let addtaskbtn = document.getElementById("add-task-btn");
+let list = document.getElementById("task-list");
+let newtask = document.getElementById("new-task")
+
+
+
+let addtask =()=>{
+    const TaskText = newtask.value.trim();
+
+    if(TaskText === ''){
+        alert("Please Enter a Task");
+        return;
+    }
+
+
+
+    const taskitem = document.createElement("li");
+    taskitem.innerHTML = `  <input type="checkbox" class="checkbox">
+    <span>${TaskText}</span>
+    <button class="delete-btn">Delete</button>`;
+
+   list.appendChild(taskitem);
+    newtask.value = "";
+
+    taskitem.querySelector(".delete-btn").addEventListener("click" , ()=>{
+        taskitem.remove();
+    });
+
+    taskitem.querySelector(".checkbox").addEventListener("change" , (e)=>{
+       if(e.target.checked){
+        taskitem.classList.add("completed");
+       }else{
+        taskitem.classList.remove("completed");
+       }
+    });
+}
+
+addtaskbtn.addEventListener('click', addtask);
+
+newtask.addEventListener("keypress" ,(e)=>{
+if(e.key==="Enter"){
+    addtask();
+}
+})
+    </script>
+</body>
+</html>
